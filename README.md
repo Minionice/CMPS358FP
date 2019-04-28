@@ -1,2 +1,5 @@
 # CMPS358FP
-Final prokect for CMPS 358
+Final project for CMPS 358
+
+Important links:
+https://github.com/BrianPeek/legoev3
