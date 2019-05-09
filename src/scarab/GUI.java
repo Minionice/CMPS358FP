@@ -1,0 +1,123 @@
+package scarab;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.rmi.RemoteException;
+
+import javax.swing.JFrame;
+
+import lejos.hardware.Audio;
+import lejos.remote.ev3.RMIRegulatedMotor;
+
+/**
+ * Creates by Alex Thoennes and Dan Tartaglione
+ * 
+ * This class creates a GUI which implements a KeyListener. The user
+ * uses the GUI to control the scarab robot. This is done by using the
+ * arrow keys. The following commands are what the robot can do remotely:
+ * 
+ * UP:
+ *   moves forward
+ * DOWN:
+ *   moves backwards
+ * LEFT:
+ *   Turns to the left
+ * RIGHT:
+ *   Turns to the right
+ * B:
+ *   tells the robot to beep
+ * Q:
+ *   used to safely exit the program 
+ *   and close the ports
+ */
+
+public class GUI implements KeyListener
+{
+	private JFrame frame;
+	
+	private Audio audio;
+	private RMIRegulatedMotor left;
+	private RMIRegulatedMotor right;
+	
+	public GUI(Audio audio, RMIRegulatedMotor left, RMIRegulatedMotor right)
+	{
+		this.audio = audio;
+		this.left = left;
+		this.right = right;
+		
+		initFrame();
+	}
+	
+	private void initFrame()
+	{
+		frame = new JFrame("Controller");
+		frame.setVisible(true);
+		frame.setSize(500, 500);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addKeyListener(this);
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		try
+		{
+			left.setSpeed(500);
+			right.setSpeed(500);
+			
+			switch (e.getKeyCode())
+			{
+			case KeyEvent.VK_UP:
+				left.forward();
+				right.forward();
+				break;
+			case KeyEvent.VK_DOWN:
+				left.backward();
+				right.backward();
+				break;
+			case KeyEvent.VK_LEFT:
+				left.stop(false);
+				right.forward();
+				break;
+			case KeyEvent.VK_RIGHT:
+				left.forward();
+				right.stop(false);
+				break;
+			case KeyEvent.VK_B:
+				audio.systemSound(0);
+				break;
+			case KeyEvent.VK_Q:
+				System.out.println("QUIT");
+				System.out.println("Closing Ports!!!");
+				left.close();
+				right.close();
+				frame.dispose();
+				System.out.println("Ports closed!!!");
+				System.out.println("Exiting program!!!");
+				break;
+			}
+			
+		}
+		catch (RemoteException excp)
+		{
+			excp.printStackTrace();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+		try
+		{
+			left.stop(true);
+			right.stop(true);
+		}
+		catch (Exception excp)
+		{
+			excp.printStackTrace();
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}	
+}
