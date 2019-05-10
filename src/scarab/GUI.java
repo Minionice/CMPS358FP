@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 
 import lejos.hardware.Audio;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 /**
@@ -38,14 +39,16 @@ public class GUI implements KeyListener
 	private Audio audio;
 	private RMIRegulatedMotor left;
 	private RMIRegulatedMotor right;
+	private EV3ColorSensor color;
 	
 	private boolean quit;
 	
-	public GUI(Audio audio, RMIRegulatedMotor left, RMIRegulatedMotor right)
+	public GUI(Audio audio, RMIRegulatedMotor left, RMIRegulatedMotor right, EV3ColorSensor color)
 	{
 		this.audio = audio;
 		this.left = left;
 		this.right = right;
+		this.color = color;
 		
 		quit = false;
 		
@@ -95,6 +98,7 @@ public class GUI implements KeyListener
 				System.out.println("Closing Ports!!!");
 				left.close();
 				right.close();
+				color.close();
 				frame.dispose();
 				this.quit = true;
 				System.out.println("Ports closed!!!");

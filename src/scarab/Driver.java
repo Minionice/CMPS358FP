@@ -38,24 +38,21 @@ public class Driver
 	{
 		RemoteEV3 ev3 = (RemoteEV3) BrickFinder.getDefault();
 		Audio audio = ev3.getAudio();
-		audio.playSample(new File("CMPS358FP/walle.wav"));
 		RMIRegulatedMotor left = ev3.createRegulatedMotor("A", 'L');
 		RMIRegulatedMotor right = ev3.createRegulatedMotor("B", 'L');
-		GUI gui = new GUI(audio, left, right);
-		
-		EV3ColorSensor colorSensor = new EV3ColorSensor(ev3.getPort("S4"));
+		EV3ColorSensor colorSensor = new EV3ColorSensor(ev3.getPort("S1"));
 		SampleProvider sp = colorSensor.getRedMode();
+		GUI gui = new GUI(audio, left, right, colorSensor);
 		
 		float[] sample = new float[1];
-		while (!gui.getQuit())
+		while (gui.getQuit() != true)
 		{
 			sp.fetchSample(sample,0);
-			System.out.println(sample[0]);
 			if (sample[0] > 0.02 && sample[0] <= .5)
 			{
+				System.out.println(sample[0]);
 				audio.systemSound(0);
 			}
 		}
-		colorSensor.close();
 	}
 }
