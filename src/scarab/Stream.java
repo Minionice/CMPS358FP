@@ -1,9 +1,5 @@
 import lejos.hardware.Audio;
 import lejos.hardware.BrickFinder;
-import lejos.hardware.Button;
-import lejos.hardware.ev3.EV3;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.hardware.Sounds;
 
@@ -87,58 +83,83 @@ public class Stream {
 	final static int Bf6=932;
 	final static int B6=988;
 	
-	final static int beat=490;
+	final static int beat=400;
 	final static int quarter=beat;
 	final static int half=2*beat;
 	final static int whole=4*beat;
 	final static int eighth=beat/2;
 	final static int sixteenth=beat/4;
 	
-    public static void main(String []args) {
+	private Audio audio;
+	
+    public Stream(Audio a){
+    	audio=a;
+    }
+    public void play(){
     	RemoteEV3 brick=(RemoteEV3) BrickFinder.getDefault();
     	Audio audio=brick.getAudio();
-    	audio.playNote(Sounds.PIANO, D5, sixteenth);
-    	audio.playNote(Sounds.PIANO, D5, sixteenth);
-    	audio.playNote(Sounds.PIANO, D6, eighth);
-    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
-    	audio.playNote(Sounds.PIANO, Af5, eighth);
-    	audio.playNote(Sounds.PIANO, G5, eighth);
-    	audio.playNote(Sounds.PIANO, F5, eighth);
-    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+    	for(int i=0; i<2; i++) {
+	    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, D6, eighth);
+	    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
+	    	audio.playNote(Sounds.PIANO, Af5, eighth);
+	    	audio.playNote(Sounds.PIANO, G5, eighth);
+	    	audio.playNote(Sounds.PIANO, F5, eighth);
+	    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, F5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, G5, sixteenth);
+	    	
+	    	audio.playNote(Sounds.PIANO, Df5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, Df5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, D6, eighth);
+	    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
+	    	audio.playNote(Sounds.PIANO, Af5, eighth);
+	    	audio.playNote(Sounds.PIANO, G5, eighth);
+	    	audio.playNote(Sounds.PIANO, F5, eighth);
+	    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, F5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, G5, sixteenth);
+	    	
+	    	audio.playNote(Sounds.PIANO, C5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, C5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, D6, eighth);
+	    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
+	    	audio.playNote(Sounds.PIANO, Af5, eighth);
+	    	audio.playNote(Sounds.PIANO, G5, eighth);
+	    	audio.playNote(Sounds.PIANO, F5, eighth);
+	    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, F5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, G5, sixteenth);
+	    	
+	    	audio.playNote(Sounds.PIANO, B4, sixteenth);
+	    	audio.playNote(Sounds.PIANO, B4, sixteenth);
+	    	audio.playNote(Sounds.PIANO, D6, eighth);
+	    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
+	    	audio.playNote(Sounds.PIANO, Af5, eighth);
+	    	audio.playNote(Sounds.PIANO, G5, eighth);
+	    	audio.playNote(Sounds.PIANO, F5, eighth);
+	    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, F5, sixteenth);
+	    	audio.playNote(Sounds.PIANO, G5, sixteenth);
+    	}
     	audio.playNote(Sounds.PIANO, F5, sixteenth);
-    	audio.playNote(Sounds.PIANO, G5, sixteenth);
+    	audio.playNote(Sounds.PIANO, F5, eighth);
+    	audio.playNote(Sounds.PIANO, F5, eighth);
+    	audio.playNote(Sounds.PIANO, F5, eighth);
+    	audio.playNote(Sounds.PIANO, F5, eighth);
+    	audio.playNote(Sounds.PIANO, D5, eighth);
+    	audio.playNote(Sounds.PIANO, D5, 3*sixteenth);
     	
-    	audio.playNote(Sounds.PIANO, Df5, sixteenth);
-    	audio.playNote(Sounds.PIANO, Df5, sixteenth);
-    	audio.playNote(Sounds.PIANO, D6, eighth);
-    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
-    	audio.playNote(Sounds.PIANO, Af5, eighth);
-    	audio.playNote(Sounds.PIANO, G5, eighth);
-    	audio.playNote(Sounds.PIANO, F5, eighth);
-    	audio.playNote(Sounds.PIANO, D5, sixteenth);
     	audio.playNote(Sounds.PIANO, F5, sixteenth);
-    	audio.playNote(Sounds.PIANO, G5, sixteenth);
-    	
-    	audio.playNote(Sounds.PIANO, C5, sixteenth);
-    	audio.playNote(Sounds.PIANO, C5, sixteenth);
-    	audio.playNote(Sounds.PIANO, D6, eighth);
-    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
-    	audio.playNote(Sounds.PIANO, Af5, eighth);
-    	audio.playNote(Sounds.PIANO, G5, eighth);
     	audio.playNote(Sounds.PIANO, F5, eighth);
-    	audio.playNote(Sounds.PIANO, D5, sixteenth);
-    	audio.playNote(Sounds.PIANO, F5, sixteenth);
-    	audio.playNote(Sounds.PIANO, G5, sixteenth);
-    	
-    	audio.playNote(Sounds.PIANO, B4, sixteenth);
-    	audio.playNote(Sounds.PIANO, B4, sixteenth);
-    	audio.playNote(Sounds.PIANO, D6, eighth);
-    	audio.playNote(Sounds.PIANO, A5, 3*sixteenth);
-    	audio.playNote(Sounds.PIANO, Af5, eighth);
-    	audio.playNote(Sounds.PIANO, G5, eighth);
     	audio.playNote(Sounds.PIANO, F5, eighth);
-    	audio.playNote(Sounds.PIANO, D5, sixteenth);
+    	audio.playNote(Sounds.PIANO, Gf5, eighth);
+    	audio.playNote(Sounds.PIANO, G5, eighth);
+    	audio.playNote(Sounds.PIANO, Gf5, sixteenth);
     	audio.playNote(Sounds.PIANO, F5, sixteenth);
-    	audio.playNote(Sounds.PIANO, G5, sixteenth);
+    	audio.playNote(Sounds.PIANO, F5, sixteenth);
+    	audio.playNote(Sounds.PIANO, F5, sixteenth);
+    	audio.playNote(Sounds.PIANO, Gf5, eighth);
     }
 }
