@@ -39,11 +39,15 @@ public class GUI implements KeyListener
 	private RMIRegulatedMotor left;
 	private RMIRegulatedMotor right;
 	
+	private boolean quit;
+	
 	public GUI(Audio audio, RMIRegulatedMotor left, RMIRegulatedMotor right)
 	{
 		this.audio = audio;
 		this.left = left;
 		this.right = right;
+		
+		quit = false;
 		
 		initFrame();
 	}
@@ -92,6 +96,7 @@ public class GUI implements KeyListener
 				left.close();
 				right.close();
 				frame.dispose();
+				this.quit = true;
 				System.out.println("Ports closed!!!");
 				System.out.println("Exiting program!!!");
 				break;
@@ -120,4 +125,9 @@ public class GUI implements KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent e) {}	
+	
+	public boolean getQuit()
+	{
+		return this.quit;
+	}
 }
